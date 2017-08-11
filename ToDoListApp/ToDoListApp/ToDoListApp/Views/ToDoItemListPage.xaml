@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ToDoListApp.CustomControls;assembly=ToDoListApp"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"             
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ToDoListApp.Views.ToDoItemListPage"
+             x:Name="ItemListPage"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             Title="To do list">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Settings"            
+            Command="{Binding GoToAppSettingsCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform 
+                    x:TypeArguments="FileImageSource" 
+                    Android="settings.png"/>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <RelativeLayout>
+        <StackLayout 
+            RelativeLayout.WidthConstraint=
+                "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+            RelativeLayout.HeightConstraint=
+                "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+            <ListView                 
+                x:Name="listView" 
+                Margin="30,17,30,17"
+                RefreshCommand="{Binding RefreshListViewCommand}"
+                IsRefreshing="{Binding IsListViewRefreshing}"
+                SeparatorColor="Purple"        
+                ItemsSource="{Binding ToDoItems}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Tapped="ViewCell_Tapped">
+                            <StackLayout                         
+                                Orientation="Horizontal" 
+                                HorizontalOptions="FillAndExpand">
+                                <Image
+                                    Source="editing.png"
+                                    HorizontalOptions="Start"
+                                    WidthRequest="27"
+                                    HeightRequest="27"> 
+                                </Image>
+
+                                <Label 
+                                    Text="{Binding Title}" 
+                                    Font="Palatino"
+                                    FontAttributes="Italic"
+                                    FontSize="Medium"                               
+                                    VerticalTextAlignment="Center"
+                                    HorizontalOptions="StartAndExpand">
+                                </Label>
+
+                                <Image 
+                                    Source="checked.png"                             
+                                    HorizontalOptions="End" 
+                                    IsVisible="{Binding Done}"
+                                    WidthRequest="27"
+                                    HeightRequest="27">
+                                </Image>
+                            </StackLayout>
+
+                            <ViewCell.ContextActions>
+                                <MenuItem 
+                                    Icon="checked.png" 
+                                    Command=
+                                        "{Binding BindingContext.ChangeStateCommand, Source= {x:Reference ItemListPage}}" 
+                                    CommandParameter="{Binding .}"> 
+                                </MenuItem>
+                                <MenuItem 
+                                    Icon="Trash"
+                                    Command=
+                                        "{Binding BindingContext.DeleteCommand, Source={x:Reference ItemListPage}}" 
+                                    CommandParameter="{Binding .}">
+                                </MenuItem>
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <local:FloatingActionButton                 
+                ButtonColor="LightGreen"
+                Image="blackPlus.png"
+                Command="{Binding AddToDoItemCommand}"
+                RelativeLayout.XConstraint=
+                    "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
+                RelativeLayout.YConstraint=
+                    "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-85}">
+        </local:FloatingActionButton>
+    </RelativeLayout>
+</ContentPage>

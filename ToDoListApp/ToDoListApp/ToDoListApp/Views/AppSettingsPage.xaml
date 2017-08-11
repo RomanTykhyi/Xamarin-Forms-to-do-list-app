@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:local="clr-namespace:ToDoListApp.CustomControls;assembly=ToDoListApp"
+             x:Class="ToDoListApp.Views.AppSettingsPage"
+             Title="{Binding PageTitle}">
+    <ContentPage.Content>
+        <ScrollView>
+            <!--<StackLayout>
+                <StackLayout Margin="27" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                    <StackLayout Orientation="Vertical"  HorizontalOptions="StartAndExpand">
+                        <Label 
+                        Text="Voice language: " 
+                        FontSize="19"
+                        FontAttributes="Bold"
+                        TextColor="MediumPurple"
+                        FontFamily="Verdana">
+                        </Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical"  HorizontalOptions="StartAndExpand">
+                        <Picker
+                        ItemsSource="{Binding Languages}"
+                        SelectedItem="{Binding SelectedLanguage}"
+                        WidthRequest="90"                         
+                        BackgroundColor="#e5ffe5">
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical"  HorizontalOptions="StartAndExpand">
+                        <Image 
+                        Margin="7,0,0,0"
+                        HeightRequest="42"
+                        WidthRequest="42"
+                        Source="{Binding LanuageOfSpeechImageSource}">
+                        </Image>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>-->
+
+            <TableView>
+                <TableRoot> 
+                    <TableSection  Title="Localization">
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="13,0">
+                                <Label 
+                                    Text="Voice language" 
+                                    VerticalOptions="Center"
+                                    FontSize="19"
+                                    FontAttributes="Bold">  
+                                </Label>
+                                <Picker
+                                    ItemsSource="{Binding Languages}"
+                                    HorizontalOptions="FillAndExpand"
+                                    SelectedItem="{Binding SelectedLanguage}">
+                                </Picker>
+                                <Image 
+                                    Margin="7,0,0,0"
+                                    HeightRequest="42"
+                                    WidthRequest="42"
+                                    Source="{Binding LanuageOfSpeechImageSource}">
+                                </Image>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
